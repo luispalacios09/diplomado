@@ -2,6 +2,12 @@ import HomeView from "@/views/HomeView.vue";
 
 export const routesUser = [
     {
+        path: '/dashboard',
+        name: 'Dashboard',
+        component: ()=>{},
+        current: false
+    },
+    {
         path: '/your-profile',
         name: 'Your Profile',
         component: ()=>{},
@@ -57,12 +63,12 @@ export const routes = [
         component: () => import('@/views/HotelSitesView.vue'),
         current: false
     },
-    {
-        path: '/create-hotel',
-        name: 'Registrar Hotel',
-        label: 'Registrar Hotel',
-        component: () => import('@/views/RegisterHotelView.vue'),
-        current: false
-    }
+    // {
+    //     path: '/create-hotel',
+    //     name: 'Registrar Hotel',
+    //     label: 'Registrar Hotel',
+    //     component: () => import('@/views/RegisterHotelView.vue'),
+    //     current: false
+    // }
 ]
 

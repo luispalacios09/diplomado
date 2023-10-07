@@ -1,10 +1,78 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Home from '../views/HomeViewAdmin.vue'
 import {routes} from "@/router/RouterList";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: routes
+  routes: [
+    ...routes,
+    {
+      // Document title tag
+      // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
+      meta: {
+        title: 'Dashboard'
+      },
+      path: '/dashboard',
+          name: 'dashboard',
+        component: Home
+    },
+    {
+      meta: {
+        title: 'users'
+      },
+      path: '/users',
+          name: 'users',
+        component: () => import('@/views/TablesView.vue')
+    },
+    {
+      meta: {
+        title: 'Forms'
+      },
+      path: '/forms',
+          name: 'forms',
+        component: () => import('@/views/FormsView.vue')
+    },
+    {
+      meta: {
+        title: 'Profile'
+      },
+      path: '/profile',
+          name: 'profile',
+        component: () => import('@/views/ProfileView.vue')
+    },
+    {
+      meta: {
+        title: 'Ui'
+      },
+      path: '/ui',
+          name: 'ui',
+        component: () => import('@/views/UiView.vue')
+    },
+    {
+      meta: {
+        title: 'Responsive layout'
+      },
+      path: '/responsive',
+          name: 'responsive',
+        component: () => import('@/views/ResponsiveView.vue')
+    },
+    {
+      meta: {
+        title: 'Login'
+      },
+      path: '/login',
+          name: 'login',
+        component: () => import('@/views/LoginView.vue')
+    },
+    {
+      meta: {
+        title: 'Error'
+      },
+      path: '/error',
+          name: 'error',
+        component: () => import('@/views/ErrorView.vue')
+    }
+  ]
 })
 
 export default router

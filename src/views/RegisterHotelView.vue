@@ -6,7 +6,7 @@
   <form>
     <div class="grid md:grid-cols-2 md:gap-6">
       <div class="relative z-0 w-full mb-6 group">
-        <select id="floating_city" id="floating_city" class="cajatexto  text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+        <select id="floating_city" class="cajatexto  text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" " required>
           <option selected>Seleccione una ciudad</option>
           <option value="MO">Monteria</option>
@@ -56,7 +56,7 @@
             class="font-medium">Oops!</span> El campo # max de habitaciones es obligatorio</p>
       </div>
       <div class="relative z-0 w-full mb-6 group">
-        <select id="floating_type_hab" id="floating_type_hab" class="cajatexto  text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+        <select id="floating_type_hab" class="cajatexto  text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" " required>
           <option selected>seleccione un tipo de habitacion</option>
           <option value="ES">Estándar</option>

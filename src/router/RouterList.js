@@ -61,7 +61,7 @@ export const routes = [
         path: '/create-hotel',
         name: 'Registrar Hotel',
         label: 'Registrar Hotel',
-        component: () => import('@/views/HotelSitesView.vue'),
+        component: () => import('@/views/RegisterHotelView.vue'),
         current: false
     }
 ]

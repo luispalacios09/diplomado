@@ -42,36 +42,12 @@ const router = createRouter({
     },
     {
       meta: {
-        title: 'Ui'
-      },
-      path: '/ui',
-          name: 'ui',
-        component: () => import('@/views/UiView.vue')
-    },
-    {
-      meta: {
-        title: 'Responsive layout'
-      },
-      path: '/responsive',
-          name: 'responsive',
-        component: () => import('@/views/ResponsiveView.vue')
-    },
-    {
-      meta: {
         title: 'Login'
       },
       path: '/login',
           name: 'login',
         component: () => import('@/views/LoginView.vue')
     },
-    {
-      meta: {
-        title: 'Error'
-      },
-      path: '/error',
-          name: 'error',
-        component: () => import('@/views/ErrorView.vue')
-    }
   ]
 })
 

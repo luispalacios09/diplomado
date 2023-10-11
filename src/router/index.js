@@ -48,6 +48,11 @@ const router = createRouter({
           name: 'login',
         component: () => import('@/views/LoginView.vue')
     },
+    // Ruta de captura para redirigir al inicio de sesión
+    {
+      path: '/:catchAll(.*)',
+      redirect: '/login' // Redirige a la página de inicio de sesión
+    },
   ]
 })
 

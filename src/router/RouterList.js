@@ -29,7 +29,7 @@ export const routesUser = [
 
 export const routes = [
     {
-        path: '/',
+        path: '/home',
         name: 'Home',
         label: 'Hoteles disponibles',
         component: HomeView,

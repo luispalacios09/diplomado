@@ -7,14 +7,28 @@ const router = createRouter({
   routes: [
     ...routes,
     {
-      // Document title tag
-      // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
       meta: {
         title: 'Dashboard'
       },
       path: '/dashboard',
           name: 'dashboard',
         component: Home
+    },
+    {
+      meta: {
+        title: 'Cities'
+      },
+      path: '/cities',
+      name: 'cities',
+      component: () => import('@/views/Cities.vue')
+    },
+    {
+      meta: {
+        title: 'Hotels'
+      },
+      path: '/hotels',
+      name: 'hotels',
+      component: () => import('@/views/Hotels.vue')
     },
     {
       meta: {

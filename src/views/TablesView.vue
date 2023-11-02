@@ -8,6 +8,9 @@ import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
 import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import CardBoxComponentEmpty from '@/components/CardBoxComponentEmpty.vue'
+import { useMainStore } from '@/stores/main'
+
+const mainStore = useMainStore()
 </script>
 
 <template>
@@ -29,7 +32,7 @@ import CardBoxComponentEmpty from '@/components/CardBoxComponentEmpty.vue'
 <!--      </NotificationBar>-->
 
       <CardBox class="mb-6" has-table>
-        <TableSampleClients checkable />
+        <TableSampleClients checkable :items="mainStore.clients" />
       </CardBox>
 
 <!--      <SectionTitleLineWithButton :icon="mdiTableOff" title="Empty variation" />-->

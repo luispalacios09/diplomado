@@ -8,20 +8,18 @@ import BaseLevel from '@/components/BaseLevel.vue'
 import BaseButtons from '@/components/BaseButtons.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import UserAvatar from '@/components/UserAvatar.vue'
-const mainStore = useMainStore()
 
 const props = defineProps({
   checkable: Boolean,
+  options: {
+    type: Boolean,
+    default: true
+  },
   items: {
     type: Array,
     default: () => []
   }
 })
-
-const items = ref(props.items)
-if (props.items.length === 0) {
-  items.value = mainStore.clients
-}
 
 
 const isModalActive = ref(false)
@@ -35,10 +33,10 @@ const currentPage = ref(0)
 const checkedRows = ref([])
 
 const itemsPaginated = computed(() =>
-  items.value.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
+  props.items.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
 )
 
-const numPages = computed(() => Math.ceil(items.value.length / perPage.value))
+const numPages = computed(() => Math.ceil(props.items.length / perPage.value))
 
 const currentPageHuman = computed(() => currentPage.value + 1)
 
@@ -88,41 +86,21 @@ const checked = (isChecked, client) => {
     <thead>
       <tr>
         <th v-if="checkable" />
-        <th />
+        <th>Id</th>
         <th>Name</th>
-        <th>Company</th>
-        <th>City</th>
-        <th>Progress</th>
-        <th>Created</th>
-        <th />
+        <th v-if="options" />
       </tr>
     </thead>
     <tbody>
-      <tr v-for="client in itemsPaginated" :key="client.id">
-        <TableCheckboxCell v-if="checkable" @checked="checked($event, client)" />
-        <td class="border-b-0 lg:w-6 before:hidden">
-          <UserAvatar :username="client.name" class="w-24 h-24 mx-auto lg:w-6 lg:h-6" />
-        </td>
+      <tr v-for="cities in itemsPaginated" :key="cities.id">
+        <TableCheckboxCell v-if="checkable" @checked="checked($event, cities)" />
         <td data-label="Name">
-          {{ client.name }}
+          {{ cities.id }}
         </td>
         <td data-label="Company">
-          {{ client.company }}
+          {{ cities.name }}
         </td>
-        <td data-label="City">
-          {{ client.city }}
-        </td>
-        <td data-label="Progress" class="lg:w-32">
-          <progress class="flex w-2/5 self-center lg:w-full" max="100" :value="client.progress">
-            {{ client.progress }}
-          </progress>
-        </td>
-        <td data-label="Created" class="lg:w-1 whitespace-nowrap">
-          <small class="text-gray-500 dark:text-slate-400" :title="client.created">{{
-            client.created
-          }}</small>
-        </td>
-        <td class="before:hidden lg:w-1 whitespace-nowrap">
+        <td v-if="options" class="before:hidden lg:w-1 whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>
             <BaseButton color="info" :icon="mdiEye" small @click="isModalActive = true" />
             <BaseButton

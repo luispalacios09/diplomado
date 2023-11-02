@@ -8,6 +8,7 @@ import router from './router'
 import './assets/app.css'
 import {useMainStore} from "@/stores/main";
 import './css/main.css'
+import AxiosClient from "./Api/AxiosClient";
 
 
 const app = createApp(App)
@@ -18,8 +19,10 @@ app.use(router)
 app.mount('#app')
 const mainStore = useMainStore(pinia)
 // Fetch sample data
-mainStore.fetchSampleClients()
-mainStore.fetchSampleHistory()
+mainStore.fetchSampleClients();
+mainStore.fetchSampleHistory();
+mainStore.loadCities();
+mainStore.loadHotels();
 
 // Default title tag
 const defaultDocumentTitle = 'Admin Vue 3 Tailwind'

@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import axios from 'axios'
+import { getCities } from "../Api/Cities";
+import { getHotels } from "../Api/Hotels";
 
 export const useMainStore = defineStore('main', () => {
   const userName = ref('John Doe')
@@ -18,6 +20,8 @@ export const useMainStore = defineStore('main', () => {
 
   const clients = ref([])
   const history = ref([])
+  const cities = ref([])
+  const hotels = ref([])
 
   function setUser(payload) {
     if (payload.name) {
@@ -50,6 +54,21 @@ export const useMainStore = defineStore('main', () => {
       })
   }
 
+  function loadCities() {
+    getCities().then((result) => {
+      cities.value = result.data
+    }).catch((error) => {
+      alert(error.message)
+    })
+  }
+  function loadHotels() {
+    getHotels().then((result) => {
+      hotels.value = result.data.data
+    }).catch((error) => {
+      alert(error.message)
+    })
+  }
+
   return {
     userName,
     userEmail,
@@ -57,8 +76,12 @@ export const useMainStore = defineStore('main', () => {
     isFieldFocusRegistered,
     clients,
     history,
+    cities,
+    hotels,
     setUser,
     fetchSampleClients,
-    fetchSampleHistory
+    fetchSampleHistory,
+    loadCities,
+    loadHotels
   }
 })

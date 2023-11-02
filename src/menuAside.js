@@ -1,16 +1,11 @@
 import {
   mdiAccountCircle,
   mdiMonitor,
-  mdiGithub,
   mdiLock,
-  mdiAlertCircle,
   mdiSquareEditOutline,
   mdiTable,
-  mdiViewList,
-  mdiTelevisionGuide,
-  mdiResponsive,
-  mdiPalette,
-  mdiReact
+  mdiCityVariant,
+  mdiHomeModern
 } from '@mdi/js'
 
 export default [
@@ -18,6 +13,16 @@ export default [
     to: '/dashboard',
     icon: mdiMonitor,
     label: 'Dashboard'
+  },
+  {
+    to: '/hotels',
+    label: 'Hotels',
+    icon: mdiHomeModern
+  },
+  {
+    to: '/cities',
+    label: 'Cities',
+    icon: mdiCityVariant
   },
   {
     to: '/users',

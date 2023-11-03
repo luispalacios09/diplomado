@@ -3,6 +3,8 @@ import { ref, computed } from 'vue'
 import axios from 'axios'
 import { getCities } from "../Api/Cities";
 import { getHotels } from "../Api/Hotels";
+import { getAllRooms } from "../Api/Rooms";
+import { getAccommodationTypes, getRoomTypes } from "../Api/hab_com";
 
 export const useMainStore = defineStore('main', () => {
   const userName = ref('John Doe')
@@ -22,7 +24,11 @@ export const useMainStore = defineStore('main', () => {
   const history = ref([])
   const cities = ref([])
   const hotels = ref([])
-
+  const hotelSelect = ref({ })
+  const rooms = ref([])
+  const roomSelect = ref({ })
+  const roomTypes = ref([])
+  const roomAccommodations = ref([])
   function setUser(payload) {
     if (payload.name) {
       userName.value = payload.name
@@ -61,13 +67,29 @@ export const useMainStore = defineStore('main', () => {
       alert(error.message)
     })
   }
-  function loadHotels() {
-    getHotels().then((result) => {
-      hotels.value = result.data.data
-    }).catch((error) => {
-      alert(error.message)
+  async function loadHotels() {
+    const h =  (await getHotels()).data.data
+    const load = [];
+    for (const hotel of h) {
+      let room = (await getAllRooms(hotel.id)).data.data
+      const hotelRooms = {
+        ...hotel,
+        rooms: room
+      }
+      load.push(hotelRooms)
+    }
+    hotels.value = load
+  }
+
+  function loadHabCom(){
+    getRoomTypes().then((result) => {
+      roomTypes.value = result.data
+    })
+    getAccommodationTypes().then((result) => {
+      roomAccommodations.value = result.data
     })
   }
+
 
   return {
     userName,
@@ -78,10 +100,16 @@ export const useMainStore = defineStore('main', () => {
     history,
     cities,
     hotels,
+    hotelSelect,
+    rooms,
+    roomSelect,
+    roomTypes,
+    roomAccommodations,
     setUser,
     fetchSampleClients,
     fetchSampleHistory,
     loadCities,
-    loadHotels
+    loadHotels,
+    loadHabCom,
   }
 })

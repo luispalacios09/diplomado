@@ -5,7 +5,8 @@ import {
   mdiSquareEditOutline,
   mdiTable,
   mdiCityVariant,
-  mdiHomeModern
+  mdiHomeModern,
+  mdiBed
 } from '@mdi/js'
 
 export default [
@@ -20,6 +21,11 @@ export default [
     icon: mdiHomeModern
   },
   {
+    to: '/rooms',
+    label: 'Rooms',
+    icon: mdiBed
+  },
+  {
     to: '/cities',
     label: 'Cities',
     icon: mdiCityVariant
@@ -29,21 +35,21 @@ export default [
     label: 'Users',
     icon: mdiTable
   },
-  {
-    to: '/forms',
-    label: 'Forms',
-    icon: mdiSquareEditOutline
-  },
+  // {
+  //   to: '/forms',
+  //   label: 'Forms',
+  //   icon: mdiSquareEditOutline
+  // },
   {
     to: '/profile',
     label: 'Profile',
     icon: mdiAccountCircle
   },
-  {
-    to: '/login',
-    label: 'Login',
-    icon: mdiLock
-  },
+  // {
+  //   to: '/login',
+  //   label: 'Login',
+  //   icon: mdiLock
+  // },
 
 
 ]

@@ -22,7 +22,8 @@ const mainStore = useMainStore(pinia)
 mainStore.fetchSampleClients();
 mainStore.fetchSampleHistory();
 mainStore.loadCities();
-mainStore.loadHotels();
+mainStore.loadHabCom();
+await mainStore.loadHotels();
 
 // Default title tag
 const defaultDocumentTitle = 'Admin Vue 3 Tailwind'

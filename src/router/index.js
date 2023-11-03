@@ -32,6 +32,14 @@ const router = createRouter({
     },
     {
       meta: {
+        title: 'Rooms'
+      },
+      path: '/rooms',
+      name: 'rooms',
+      component: () => import('@/views/Rooms.vue')
+    },
+    {
+      meta: {
         title: 'users'
       },
       path: '/users',

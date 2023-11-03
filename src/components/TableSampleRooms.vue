@@ -9,7 +9,8 @@ import BaseButtons from '@/components/BaseButtons.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import UserAvatar from '@/components/UserAvatar.vue'
 import { deleteHotel } from "../Api/Hotels";
-import CardFormHotel from "./CardFormHotel.vue";
+import CardFormRoom from "./CardFormRoom.vue";
+import { deleteRoom } from "../Api/Rooms";
 
 const props = defineProps({
   checkable: Boolean,
@@ -29,7 +30,7 @@ const isModalActive = ref(false)
 const isModalDangerActive = ref(false)
 const isModalUpdateActive = ref(false)
 
-const hotelShow = ref({})
+const RoomShow = ref({})
 
 const perPage = ref(5)
 
@@ -37,30 +38,41 @@ const currentPage = ref(0)
 
 const checkedRows = ref([])
 
-//validate inputs
-
 const showHotel = (hotel) => {
-  hotelShow.value = hotel
+  RoomShow.value = hotel
   isModalActive.value = true
 }
 
 const editHotel = (hotel) => {
-  mainStore.hotelSelect.value = hotel
+  mainStore.roomSelect.value = hotel
   isModalUpdateActive.value = true
 }
 
 const handleDelete = () => {
-  const id = hotelShow.value?.id
-  deleteHotel(id).then(() => {
-    mainStore.hotels = mainStore.hotels.filter((hotel) => hotel.id !== id)
+  const id = RoomShow.value?.room?.id
+  console.log(id)
+  deleteRoom(id).then((response) => {
+    mainStore.loadHotels().then(()=>{});
     isModalDangerActive.value = false
-    alert('Hotel deleted successfully')
+    alert('Room deleted successfully')
   })
 }
 
-const itemsPaginated = computed(() =>
-  props.items.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
+const itemsPaginated = computed(() => {
+  const room = []
+  props.items.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1)).forEach( i => {
+    if (i.rooms.length === 0) return i
+    i.rooms.forEach( r => {
+      room.push({
+        ...i,
+        room: r
+      })
+    })
+  })
+  return room
+  }
 )
+
 
 const numPages = computed(() => Math.ceil(props.items.length / perPage.value))
 
@@ -99,14 +111,14 @@ const checked = (isChecked, client) => {
 
 <template>
   <CardBoxModal  v-model="isModalActive" title="Hotel Information">
-    <div v-if="hotelShow">
+    <div v-if="RoomShow">
       <div class="border-t border-gray-100">
         <dl class="divide-y divide-gray-100">
           <div class="px-4 pt-6 sm:grid sm:grid-cols-2 sm:gap-2 sm:px-0">
-            <dt class="text-sm font-medium leading-6 text-gray-900"><b>Name:</b> {{hotelShow?.name}}</dt>
-            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0"><b>Nit:</b> {{hotelShow?.nit}}</dd>
-            <dt class="text-sm font-medium leading-6 text-gray-900"><b>Location:</b> {{hotelShow?.address}}, {{hotelShow?.city?.name}}</dt>
-            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0"><b>Number of rooms:</b> {{hotelShow?.num_rooms}}</dd>
+            <dt class="text-sm font-medium leading-6 text-gray-900"><b>Hotel name:</b> {{RoomShow?.name}}</dt>
+            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0"><b>Nit:</b> {{RoomShow?.nit}}</dd>
+            <dt class="text-sm font-medium leading-6 text-gray-900"><b>Quantity:</b> {{RoomShow?.room?.quantity}}</dt>
+            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0"><b>Type and Accommodation:</b> {{RoomShow?.room?.type.name}}, {{RoomShow?.room?.accommodation.name}}</dd>
           </div>
         </dl>
       </div>
@@ -118,25 +130,26 @@ const checked = (isChecked, client) => {
     <p>The hotel cannot be recovered.</p>
   </CardBoxModal>
 
-  <CardFormHotel v-model="isModalUpdateActive" :update-city="true"/>
+  <CardFormRoom v-model="isModalUpdateActive" :update-room="true"/>
 
   <table>
     <thead>
       <tr>
         <th v-if="checkable" />
         <th>Id</th>
-        <th>Name</th>
-        <th>Nit</th>
-        <th>Address</th>
-        <th>City</th>
+        <th>Hotel name</th>
+        <th>Hotel nit</th>
+        <th>Quantity</th>
+        <th>Type</th>
+        <th>Accommodation</th>
         <th v-if="options" />
       </tr>
     </thead>
     <tbody>
-      <tr v-for="Hotels in itemsPaginated" :key="Hotels.id">
-        <TableCheckboxCell v-if="checkable" @checked="checked($event, Hotels)" />
+      <tr v-for="Hotels in itemsPaginated" :key="Hotels.room.id">
+        <TableCheckboxCell v-if="checkable" @checked="checked($event, Hotels.room)" />
         <td data-label="Id">
-          {{ Hotels.id }}
+          {{ Hotels.room.id }}
         </td>
         <td data-label="Name">
           {{ Hotels.name }}
@@ -144,11 +157,14 @@ const checked = (isChecked, client) => {
         <td data-label="Nit">
           {{ Hotels.nit }}
         </td>
+        <td data-label="Nit">
+          {{ Hotels.room.quantity }}
+        </td>
         <td data-label="Address">
-          {{ Hotels.address }}
+          {{ Hotels.room.type.name }}
         </td>
         <td data-label="City">
-          {{ Hotels.city.name }}
+          {{ Hotels.room.accommodation.name }}
         </td>
         <td v-if="options" class="before:hidden lg:w-1 whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>
@@ -160,7 +176,7 @@ const checked = (isChecked, client) => {
               small
               @click="()=>{
                 isModalDangerActive = true
-                hotelShow = Hotels
+                RoomShow = Hotels
               }"
             />
           </BaseButtons>

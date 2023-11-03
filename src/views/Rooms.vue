@@ -1,21 +1,20 @@
 <script setup>
-import { mdiHomeModern, mdiPlus } from "@mdi/js";
+import { mdiBed, mdiPlus } from "@mdi/js";
 import SectionMain from '@/components/SectionMain.vue'
 import CardBox from '@/components/CardBox.vue'
 import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
 import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue'
 import { ref } from "vue";
-import TableSampleHotels from "../components/TableSampleHotels.vue";
+import TableSampleRooms from "../components/TableSampleRooms.vue";
 import { useMainStore } from "../stores/main";
 import BaseButton from "../components/BaseButton.vue";
-import CardBoxModal from "../components/CardBoxModal.vue";
-import SelectList from "../components/SelectList.vue";
-import { createHotel } from "../Api/Hotels";
 import CardFormHotel from "../components/CardFormHotel.vue";
+import CardFormRoom from "../components/CardFormRoom.vue";
 const mainStore = useMainStore();
 const isModalActive = ref(false)
+
 const openModal = () => {
-  mainStore.hotelSelect.value = null
+  mainStore.roomSelect.value = null
   isModalActive.value = true
 }
 </script>
@@ -23,8 +22,8 @@ const openModal = () => {
 <template>
   <LayoutAuthenticated>
     <SectionMain>
-      <CardFormHotel v-model="isModalActive"/>
-      <SectionTitleLineWithButton :icon="mdiHomeModern" title="Hotels" main>
+      <CardFormRoom v-model="isModalActive"/>
+      <SectionTitleLineWithButton :icon="mdiBed" title="Rooms" main>
         <BaseButton
           color="green"
           :icon="mdiPlus"
@@ -34,7 +33,7 @@ const openModal = () => {
       </SectionTitleLineWithButton>
 
       <CardBox class="mb-6" has-table v-if="mainStore.hotels">
-        <TableSampleHotels :items="mainStore.hotels" checkable/>
+        <TableSampleRooms :items="mainStore.hotels" checkable/>
       </CardBox>
 
     </SectionMain>

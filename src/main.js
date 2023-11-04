@@ -23,10 +23,10 @@ mainStore.fetchSampleClients();
 mainStore.fetchSampleHistory();
 mainStore.loadCities();
 mainStore.loadHabCom();
-await mainStore.loadHotels();
+mainStore.loadHotels();
 
 // Default title tag
-const defaultDocumentTitle = 'Admin Vue 3 Tailwind'
+const defaultDocumentTitle = 'Vue 3 Tailwind'
 
 // Set document title from route meta
 router.afterEach((to) => {

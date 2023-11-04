@@ -31,9 +31,9 @@ const value = computed({
 
 <template>
   <Listbox as="div" v-model="value">
-    <ListboxLabel class="block text-sm font-medium leading-6 text-gray-900">{{label}}</ListboxLabel>
+    <ListboxLabel class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">{{label}}</ListboxLabel>
     <div class="relative mt-2">
-      <ListboxButton class="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
+      <ListboxButton class="relative h-9 w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500  shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
         <span class="flex items-center">
 <!--          <img :src="selected.avatar" alt="" class="h-5 w-5 flex-shrink-0 rounded-full" />-->
           <span class="ml-3 block truncate">{{ value?.name }}</span>

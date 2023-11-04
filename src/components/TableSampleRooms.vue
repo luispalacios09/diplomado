@@ -114,7 +114,7 @@ const checked = (isChecked, client) => {
     <div v-if="RoomShow">
       <div class="border-t border-gray-100">
         <dl class="divide-y divide-gray-100">
-          <div class="px-4 pt-6 sm:grid sm:grid-cols-2 sm:gap-2 sm:px-0">
+          <div class="px-4 pt-6 sm:grid sm:grid-cols-2 sm:gap-2 sm:px-0 [&>*]:dark:text-white">
             <dt class="text-sm font-medium leading-6 text-gray-900"><b>Hotel name:</b> {{RoomShow?.name}}</dt>
             <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0"><b>Nit:</b> {{RoomShow?.nit}}</dd>
             <dt class="text-sm font-medium leading-6 text-gray-900"><b>Quantity:</b> {{RoomShow?.room?.quantity}}</dt>
